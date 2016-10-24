@@ -7,27 +7,42 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Rumbl!</title>
+    <title>CCT3K</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      
+      <div class="container">
+        <div class="navbar-header">
+          <%= link "CCT3K", to: page_path(@conn, :index), class: "navbar-brand" %>
+        </div>
+        <div id="header" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link "Home", to: page_path(@conn, :index) %></li>
+            <%= if @current_user do %>
+              <li><%= link "My Videos", to: video_path(@conn, :index) %></li>
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <%= if @current_user do %>
+              <li><p class="navbar-text"><%= @current_user.username %></p></li>
+              <li> <%= link "Log out", to: session_path(@conn, :delete, @current_user), method: "delete", form: [class: "navbar-form"] %></li>
+            <% else %>
+              <li><%= link "Register", to: user_path(@conn, :new) %></li>
+              <li><%= link "Log in", to: session_path(@conn, :new) %></li>
+            <% end %>
+            
+          </ul>
+        </div>      
+      </div>
+
+    </nav>
+
+
+
     <div class="container">
-      <header class="header">
-        <ol class="breadcrumb text-right">
-          <%= if @current_user do %>
-            <li><%= @current_user.username %></li>
-            <li><%= link "My Videos", to: video_path(@conn, :index) %></li>
-            <li>
-              <%= link "Log out", to: session_path(@conn, :delete, @current_user), method: "delete" %>
-            </li>
-          <% else %>
-            <li><%= link "Register", to: user_path(@conn, :new) %></li>
-            <li><%= link "Log in", to: session_path(@conn, :new) %></li>
-          <% end %>
-        </ol>
-        <span class="logo"></span>
-      </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
