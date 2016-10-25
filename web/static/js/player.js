@@ -12,6 +12,7 @@ let Player = {
 
   onIframeReady(domId, playerId, onReady){
     this.player = new YT.Player(domId, {
+      "videoId": playerId,
       events: {
         "onReady": (event => onReady(event) ),
         "onStateChange": (event => this.onPlayerStateChange(event) )
