@@ -1248,6 +1248,9 @@ var Player = {
 
     this.player = new YT.Player(domId, {
       "videoId": playerId,
+      playerVars: {
+        start: 1
+      },
       events: {
         "onReady": function onReady(event) {
           return _onReady(event);
